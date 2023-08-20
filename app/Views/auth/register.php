@@ -36,24 +36,28 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" id="formRegister">
                                 <div class="form-group">
                                         <input type="text" class="form-control" name="nama" id="nama"
                                             placeholder="Nama">
+                                        <small class="text-danger"></small>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" id="email"
                                         placeholder="Email Address">
+                                        <small class="text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                        <small class="text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control"
-                                    id="exampleRepeatPassword" placeholder="Repeat Password">
+                                    <input type="password" class="form-control" name="passwordConfirmation"
+                                    id="passwordConfirmation" placeholder="Repeat Password">
+                                        <small class="text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                    <button type="submit" class="btn btn-primary btn-block" id="btn-register">Register</button>
                                 </div>
                             </form>
                             <hr>
@@ -81,6 +85,41 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        $('#formRegister').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '/registration/store',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                beforeSend: () => {
+                    $('#btn-register').html('<i class="fa fa-spin fa-spinner"></i>')
+                },
+                complete: () => {
+                    $('#btn-register').html('Register')
+                },
+                success: (response) => {
+                    if(response.status) {
+                        alert(response.message);
+                        window.location.href = '/login';
+                    }
+
+                    $.each(response.errors, (key, value) => {
+                        $(`[name="${key}"]`).addClass('is-invalid');
+                        $(`[name="${key}"]`).next().text(value);
+
+                        if(value == '') {
+                            $(`[name="${key}"]`).removeClass('is-invalid');
+                            $(`[name="${key}"]`).addClass('is-valid');
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 
 </body>
 
