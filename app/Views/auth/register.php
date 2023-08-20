@@ -19,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -84,41 +84,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="<?= base_url() ?>/js/sb-admin-2.min.js"></script>
 
-    <script>
-        $('#formRegister').submit(function (e) {
-            e.preventDefault();
+    <script type="module">
+        import { postRequest } from '<?= base_url() ?>/js/postRequest.js';
 
-            $.ajax({
-                url: '/registration/store',
-                type: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                beforeSend: () => {
-                    $('#btn-register').html('<i class="fa fa-spin fa-spinner"></i>')
-                },
-                complete: () => {
-                    $('#btn-register').html('Register')
-                },
-                success: (response) => {
-                    if(response.status) {
-                        alert(response.message);
-                        window.location.href = '/login';
-                    }
+        const form = document.getElementById('formRegister');
+        const url = '/registration/store';
+        const btnSubmit = document.getElementById('btn-register');
+        const btnSubmitText = btnSubmit.innerHTML;
+        const redirectUrl = '/login';
 
-                    $.each(response.errors, (key, value) => {
-                        $(`[name="${key}"]`).addClass('is-invalid');
-                        $(`[name="${key}"]`).next().text(value);
-
-                        if(value == '') {
-                            $(`[name="${key}"]`).removeClass('is-invalid');
-                            $(`[name="${key}"]`).addClass('is-valid');
-                        }
-                    })
-                }
-            })
-        })
+        postRequest(form, url, btnSubmit, btnSubmitText, redirectUrl);
     </script>
 
 </body>
