@@ -21,4 +21,9 @@ class User extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function markAsActive($user_id)
+    {
+        return $this->update($user_id, ['is_active' => 1]);
+    }
 }

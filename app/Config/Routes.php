@@ -34,6 +34,8 @@ $routes->get('/', 'Home::index');
 $routes->get('registration', 'Registration::index');
 $routes->post('registration/store', 'Registration::store');
 
+$routes->get('email-verification/(:segment)', 'EmailVerification::verifyEmail/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\User;
 
+use App\Controllers\EmailVerification;
+
 class Registration extends BaseController
 {
     public function index()
@@ -17,7 +19,7 @@ class Registration extends BaseController
     {
         $rules = [
             'nama' => 'required',
-            'email' => 'required|valid_email[users.email]',
+            'email' => 'required|valid_email|is_unique[users.email]',
             'password' => 'required|min_length[8]',
             'passwordConfirmation' => [
                 'rules' => 'required|matches[password]',
@@ -38,22 +40,38 @@ class Registration extends BaseController
 
             echo json_encode(['status' => FALSE, 'errors' => $errors]);
         } else {
-            $model = new User();
+            try {
+                $model = new User();
+                $model->transBegin();
 
-            $password = $this->request->getPost('password');
-            $encryptedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $password = $this->request->getPost('password');
+                $encryptedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $email =  $this->request->getPost('email');
 
-            $data = [
-                'nama' => $this->request->getPost('nama'),
-                'email' => $this->request->getPost('email'),
-                'password' => $encryptedPassword,
-                'user_level' => 1,
-                'is_active' => 0,
-            ];
+                $data = [
+                    'nama' => $this->request->getPost('nama'),
+                    'email' => $email,
+                    'password' => $encryptedPassword,
+                    'user_level' => 1,
+                    'is_active' => 0,
+                ];
 
-            $model->insert($data);
+                $model->insert($data);
 
-            echo json_encode(['status' => TRUE, 'message' => 'Registration Success']);
+                $user_id = $model->getInsertID();
+
+                $emailVerification = new EmailVerification();
+                $emailVerification->sendEmail($user_id, $email);
+
+                $model->transCommit();
+
+                echo json_encode(['status' => TRUE, 'message' => 'Registration Success']);
+            } catch (\Throwable $th) {
+                $model->transRollback();
+
+                echo json_encode(['status' => FALSE, 'message' => $th->getMessage()]);
+            }
+
         }
     }
 }
