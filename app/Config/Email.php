@@ -38,7 +38,7 @@ class Email extends BaseConfig
     /**
      * SMTP Password
      */
-    public string $SMTPPass = 'xiccborextzjtczx';
+    public string $SMTPPass = 'blthzoqkvswceplw';
 
     /**
      * SMTP Port
@@ -114,4 +114,18 @@ class Email extends BaseConfig
      * Enable notify message from server
      */
     public bool $DSN = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->fromEmail = $_ENV['mailSender'] ?? $this->fromEmail;
+        $this->fromName = $_ENV['mailNameSender'] ?? $this->fromName;
+        $this->protocol = $_ENV['mailProtocol'] ?? $this->protocol;
+
+        $this->SMTPHost = $_ENV['SMTPHost'] ?? $this->SMTPHost;
+        $this->SMTPPort = $_ENV['SMTPPort'] ?? $this->SMTPPort;
+        $this->SMTPUser = $_ENV['SMTPUser'] ?? $this->SMTPUser;
+        $this->SMTPPass = $_ENV['SMTPPass'] ?? $this->SMTPPass;
+    }
 }

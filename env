@@ -141,3 +141,14 @@ database.default.port = 3306
 #--------------------------------------------------------------------
 
 # curlrequest.shareOptions = true
+
+#--------------------------------------------------------------------
+# Mail settings
+#--------------------------------------------------------------------
+mailSender =
+mailSenderName =
+SMTPHost =
+SMTPUser =
+SMTPPass =
+SMTPPort =
+
