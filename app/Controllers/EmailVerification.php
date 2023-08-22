@@ -52,9 +52,11 @@ class EmailVerification extends BaseController
             // delete all token based on user_id
             $this->UserTokenModel->where('user_id', $userToken['user_id'])->delete();
 
-            echo json_encode(['status' => TRUE, 'message' => 'Email has been verified']);
+            $this->session->setFlashdata('registration-success', 'Your account has been verified.');
+            return redirect()->to('/login');
         } else {
-            echo json_encode(['status' => FALSE, 'message' => 'Invalid Token']);
+            $this->session->setFlashdata('registration-failed', 'Invalid token or token has been expired.');
+            return redirect()->to('/registration');
         }
     }
 }

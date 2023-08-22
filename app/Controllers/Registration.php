@@ -13,6 +13,7 @@ class Registration extends BaseController
     {
         return view('auth/register', [
             'title' => 'Registration Page',
+            'session' => $this->session,
         ]);
     }
     public function store()
@@ -65,11 +66,13 @@ class Registration extends BaseController
 
                 $model->transCommit();
 
-                echo json_encode(['status' => TRUE, 'message' => 'Registration Success']);
+                $this->session->setFlashdata('registration-success', 'Registration success, please verify your email!');
+                echo json_encode(['status' => TRUE, 'redirectUrl' => '/login']);
             } catch (\Throwable $th) {
                 $model->transRollback();
 
-                echo json_encode(['status' => FALSE, 'message' => $th->getMessage()]);
+                $this->session->setFlashdata('registration-failed', 'Registration failed, please try again!');
+                echo json_encode(['status' => 'error', 'redirectUrl' => '/registration']);
             }
 
         }

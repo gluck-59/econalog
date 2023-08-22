@@ -1,4 +1,6 @@
-const postRequest = (form, url, btnSubmit, btnSubmitText, redirectUrl) => {
+const postRequest = (form, url, btnSubmit) => {
+  const btnSubmitText = btnSubmit.innerHTML;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -20,9 +22,8 @@ const postRequest = (form, url, btnSubmit, btnSubmitText, redirectUrl) => {
     xhr.onload = () => {
       const response = xhr.response;
 
-      if (response.status) {
-        alert(response.message);
-        window.location.href = redirectUrl;
+      if (response.status || response.status === 'error') {
+        window.location.href = response.redirectUrl;
       } else {
         Object.keys(response.errors).forEach((key) => {
           const input = document.querySelector(`[name="${key}"]`);

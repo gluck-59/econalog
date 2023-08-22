@@ -34,8 +34,15 @@
                     <div class="col-lg">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-2">Create an Account!</h1>
                             </div>
+
+                            <?php if($session->has('registration-failed')) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <p class="mb-0"><?= $session->getFlashdata('registration-failed'); ?></p>
+                                </div>
+                            <?php endif; ?>
+
                             <form class="user" id="formRegister">
                                 <div class="form-group">
                                         <input type="text" class="form-control" name="nama" id="nama"
@@ -92,10 +99,8 @@
         const form = document.getElementById('formRegister');
         const url = '/registration/store';
         const btnSubmit = document.getElementById('btn-register');
-        const btnSubmitText = btnSubmit.innerHTML;
-        const redirectUrl = '/login';
 
-        postRequest(form, url, btnSubmit, btnSubmitText, redirectUrl);
+        postRequest(form, url, btnSubmit);
     </script>
 
 </body>
