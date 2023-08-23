@@ -39,7 +39,7 @@ class Registration extends BaseController
                 'passwordConfirmation' => $this->validation->getError('passwordConfirmation')
             ];
 
-            echo json_encode(['status' => FALSE, 'errors' => $errors]);
+            return $this->response->setJSON(['status' => FALSE, 'errors' => $errors]);
         } else {
             try {
                 $model = new User();
@@ -67,12 +67,12 @@ class Registration extends BaseController
                 $model->transCommit();
 
                 $this->session->setFlashdata('registration-success', 'Registration success, please verify your email!');
-                echo json_encode(['status' => TRUE, 'redirectUrl' => '/login']);
+                return $this->response->setJSON(['status' => TRUE, 'redirectUrl' => '/login']);
             } catch (\Throwable $th) {
                 $model->transRollback();
 
                 $this->session->setFlashdata('registration-failed', 'Registration failed, please try again!');
-                echo json_encode(['status' => 'error', 'redirectUrl' => '/registration']);
+                return $this->response->setJSON(['status' => 'error', 'redirectUrl' => '/registration']);
             }
 
         }
