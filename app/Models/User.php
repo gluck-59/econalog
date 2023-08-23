@@ -26,4 +26,12 @@ class User extends Model
     {
         return $this->update($user_id, ['is_active' => 1]);
     }
+
+    public function findUserActiveByEmail($email)
+    {
+        return $this->select('nama, email, password')
+            ->where('email', $email)
+            ->where('is_active', 1)
+            ->first();
+    }
 }

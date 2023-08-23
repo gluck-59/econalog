@@ -49,7 +49,7 @@
                                     </div>
                                     <?php endif; ?>
 
-                                    <form class="user">
+                                    <form class="user" id="formLogin">
                                         <div class="form-group">
                                             <input type="email" class="form-control" name="email" placeholder="Enter Email Address...">
                                             <small class="text-danger"></small>
@@ -65,7 +65,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <button type="submit" id="btn-login" href="index.html" class="btn btn-primary btn-block">Login</button>
+                                        <button type="submit" id="btn-login" class="btn btn-primary btn-block">Login</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -102,6 +102,16 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url(); ?>/js/sb-admin-2.min.js"></script>
+
+    <script type="module">
+        import { postRequest } from "<?= base_url(); ?>/js/postRequest.js";
+
+        const form = document.getElementById('formLogin');
+        const url = 'login/authenticate';
+        const btnSubmit = document.getElementById('btn-login');
+
+        postRequest(form, url, btnSubmit);
+    </script>
 
 </body>
 

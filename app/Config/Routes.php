@@ -37,6 +37,9 @@ $routes->post('registration/store', 'Registration::store');
 $routes->get('email-verification/(:segment)', 'EmailVerification::verifyEmail/$1');
 
 $routes->get('login', 'Login::index');
+$routes->post('login/authenticate', 'Login::authenticate');
+
+$routes->post('logout', 'Logout::index');
 
 /*
  * --------------------------------------------------------------------
