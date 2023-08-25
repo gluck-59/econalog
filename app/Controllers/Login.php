@@ -3,12 +3,29 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Controllers\RememberMe;
 use App\Models\User;
 
 class Login extends BaseController
 {
+    protected $rememberMe;
+
+    public function __construct()
+    {
+        $this->rememberMe = new RememberMe();
+    }
+
     public function index()
     {
+        if($this->session->get('user')) {
+            return redirect()->back();
+        }
+
+        // check user cookie
+        if($this->rememberMe->checkUserCookie() === TRUE) {
+            return redirect()->to('/');
+        }
+
         $data = [
             'title' => 'Login Page',
             'session' => $this->session,
@@ -50,6 +67,11 @@ class Login extends BaseController
                     'password' => 'Wrong Password',
                 ];
                 return $this->response->setJSON(['status' => FALSE, 'errors' => $errors]);
+            }
+
+            // Set user cookie if remember me checked
+            if($this->request->getPost('rememberMe')) {
+                $this->rememberMe->setUserCookie($user);
             }
 
             $this->session->set('user', [

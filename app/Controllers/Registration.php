@@ -11,6 +11,10 @@ class Registration extends BaseController
 {
     public function index()
     {
+        if($this->session->get('user')) {
+            return redirect()->back();
+        }
+
         return view('auth/register', [
             'title' => 'Registration Page',
             'session' => $this->session,
