@@ -22,7 +22,7 @@ class EmailVerification extends BaseController
         $email = \Config\Services::email();
 
         $verificationToken = bin2hex(random_bytes(32));
-        $verificationLink = base_url("email-verification/{$verificationToken}");
+        $verificationLink = base_url("email-verification?token={$verificationToken}");
         $tokenExpiration = date('Y-m-d H:i:s', strtotime('+30 Minutes'));
 
         $email->setTo($userEmail);
@@ -41,8 +41,9 @@ class EmailVerification extends BaseController
         $email->send();
     }
 
-    public function verifyEmail($token)
+    public function verifyEmail()
     {
+        $token = $this->request->getVar('token');
         $userToken = $this->UserTokenModel->findValidToken($token);
 
         if($userToken) {
@@ -57,6 +58,48 @@ class EmailVerification extends BaseController
         } else {
             $this->session->setFlashdata('registration-failed', 'Invalid token or token has been expired.');
             return redirect()->to('/registration');
+        }
+    }
+
+    public function viewResendEmailVerification()
+    {
+        return view('auth/resend-email-verification', [
+            'title' => 'Resend Email Verification',
+            'session' => $this->session,
+        ]);
+    }
+
+    public function resendEmailVerification()
+    {
+        $rules = [
+            'email' => 'required|valid_email'
+        ];
+
+        if(!$this->validate($rules)) {
+            $errors = [
+                'email' => $this->validation->getError('email'),
+            ];
+
+            return $this->response->setJSON(['status' => FALSE, 'errors' => $errors]);
+        } else {
+            $email = $this->request->getPost('email');
+
+            $user = $this->UserModel
+                ->select('user_id, email, is_active')
+                ->where('email', $email)->first();
+
+            if(!$user || $user['is_active'] == 1) {
+                $errors = [
+                    'email' => 'Email is not registered or has been verified.',
+                ];
+
+                return $this->response->setJSON(['status' => FALSE, 'errors' => $errors]);
+            } else {
+                $this->sendEmail($user['user_id'], $email);
+
+                $this->session->setFlashdata('success', 'Email verification has been sent.');
+                return $this->response->setJSON(['status' => TRUE, 'redirectUrl' => '/email-verification/resend']);
+            }
         }
     }
 }

@@ -24,7 +24,14 @@ class Registration extends BaseController
     {
         $rules = [
             'nama' => 'required',
-            'email' => 'required|valid_email|is_unique[users.email]',
+            'email' => [
+                'rules' => 'required|valid_email|is_unique[users.email]',
+                'errors' => [
+                    'required' => 'Email is required',
+                    'valid_email' => 'Email is not valid',
+                    'is_unique' => 'Email has been registered'
+                ]
+            ],
             'password' => 'required|min_length[8]',
             'passwordConfirmation' => [
                 'rules' => 'required|matches[password]',

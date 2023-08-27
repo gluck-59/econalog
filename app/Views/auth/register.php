@@ -43,6 +43,9 @@
                                 </div>
                             <?php endif; ?>
 
+                            <div class="text-right">
+                                <a class="small" href="/email-verification/resend">Resend Activation Link?</a>
+                            </div>
                             <form class="user" id="formRegister">
                                 <div class="form-group">
                                         <input type="text" class="form-control" name="nama" id="nama"

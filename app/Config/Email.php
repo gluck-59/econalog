@@ -120,7 +120,7 @@ class Email extends BaseConfig
         parent::__construct();
 
         $this->fromEmail = $_ENV['mailSender'] ?? $this->fromEmail;
-        $this->fromName = $_ENV['mailNameSender'] ?? $this->fromName;
+        $this->fromName = $_ENV['mailSenderName'] ?? $this->fromName;
         $this->protocol = $_ENV['mailProtocol'] ?? $this->protocol;
 
         $this->SMTPHost = $_ENV['SMTPHost'] ?? $this->SMTPHost;
