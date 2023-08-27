@@ -33,7 +33,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'isLoggedIn' => ['except' => ['login', 'login/*', 'registration', 'registration/*', 'email-verification', 'email-verification/*']],
+            'isLoggedIn' => ['except' => ['login', 'login/*', 'registration', 'registration/*', 'email-verification', 'email-verification/*', 'forgot-password', 'forgot-password/*', 'reset-password', 'change-password', 'change-password/*']],
         ],
         'after' => [
             'toolbar',

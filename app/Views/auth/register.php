@@ -37,9 +37,9 @@
                                 <h1 class="h4 text-gray-900 mb-2">Create an Account!</h1>
                             </div>
 
-                            <?php if($session->has('registration-failed')) : ?>
+                            <?php if($session->has('failed')) : ?>
                                 <div class="alert alert-danger" role="alert">
-                                    <p class="mb-0"><?= $session->getFlashdata('registration-failed'); ?></p>
+                                    <p class="mb-0"><?= $session->getFlashdata('failed'); ?></p>
                                 </div>
                             <?php endif; ?>
 

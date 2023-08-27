@@ -34,4 +34,11 @@ class User extends Model
             ->where('is_active', 1)
             ->first();
     }
+
+    public function updatePassword($email, $password)
+    {
+        return $this->where('email', $email)
+            ->set(['password' => $password])
+            ->update();
+    }
 }

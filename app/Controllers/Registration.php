@@ -73,7 +73,7 @@ class Registration extends BaseController
                 $user_id = $model->getInsertID();
 
                 $emailVerification = new EmailVerification();
-                $emailVerification->sendEmail($user_id, $email);
+                $emailVerification->sendEmail($user_id, $email, 'registration');
 
                 $model->transCommit();
 

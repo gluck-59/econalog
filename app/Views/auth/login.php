@@ -43,9 +43,9 @@
                                         <h1 class="h4 text-gray-900 mb-2">Welcome Back!</h1>
                                     </div>
 
-                                    <?php if($session->has('registration-success')) : ?>
+                                    <?php if($session->has('success')) : ?>
                                     <div class="alert alert-success" role="alert">
-                                        <p class="mb-0"><?= $session->getFlashdata('registration-success'); ?></p>
+                                        <p class="mb-0"><?= $session->getFlashdata('success'); ?></p>
                                     </div>
                                     <?php endif; ?>
 

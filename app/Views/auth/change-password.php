@@ -39,7 +39,8 @@
                             <div class="col-lg">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Resend Email Verification</h1>
+                                        <h1 class="h4 text-gray-900 mb-2">Change Password</h1>
+                                        <p class="mb-2"><?= $session->get('email'); ?></p>
                                     </div>
 
                                     <?php if($session->has('success')) : ?>
@@ -48,14 +49,23 @@
                                     </div>
                                     <?php endif; ?>
 
-                                    <form class="user" id="formResendVerification">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" name="email"
-                                                id="email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
-                                            <small class="text-danger"></small>
+                                    <?php if($session->has('failed')) : ?>
+                                        <div class="alert alert-danger" role="alert">
+                                            <p class="mb-0"><?= $session->getFlashdata('failed'); ?></p>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block" id="btn-resend-verification">Submit</button>
+                                    <?php endif; ?>
+
+                                    <form class="user" id="formChangePassword">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                                <small class="text-danger"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="passwordConfirmation"
+                                            id="passwordConfirmation" placeholder="Repeat Password">
+                                                <small class="text-danger"></small>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block" id="btn-change-password">Submit</button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -90,10 +100,10 @@
     <script type="module">
         import { postRequest } from '<?= base_url() ?>/js/postRequest.js';
 
-        const form = document.getElementById('formResendVerification');
+        const form = document.getElementById('formChangePassword');
         // using / to define base url
-        const url = '/email-verification/resend';
-        const btnSubmit = document.getElementById('btn-resend-verification');
+        const url = '/change-password/update-forgot-password';
+        const btnSubmit = document.getElementById('btn-change-password');
 
         postRequest(form, url, btnSubmit);
     </script>

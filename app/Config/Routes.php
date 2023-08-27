@@ -34,7 +34,7 @@ $routes->get('/', 'Home::index');
 $routes->get('registration', 'Registration::index');
 $routes->post('registration/store', 'Registration::store');
 
-$routes->get('email-verification', 'EmailVerification::verifyEmail');
+$routes->get('email-verification', 'EmailVerification::verifyEmailRegistration');
 $routes->get('email-verification/resend', 'EmailVerification::viewResendEmailVerification');
 $routes->post('email-verification/resend', 'EmailVerification::resendEmailVerification');
 
@@ -42,6 +42,13 @@ $routes->get('login', 'Login::index');
 $routes->post('login/authenticate', 'Login::authenticate');
 
 $routes->post('logout', 'Logout::index');
+
+$routes->get('forgot-password', 'ForgotPassword::index');
+$routes->post('forgot-password/reset-password', 'ForgotPassword::resetPassword');
+$routes->get('reset-password', 'EmailVerification::VerifyEmailForgotPassword');
+
+$routes->get('change-password', 'ChangePassword::index');
+$routes->post('change-password/update-forgot-password', 'ChangePassword::updateForgotPassword');
 
 /*
  * --------------------------------------------------------------------
