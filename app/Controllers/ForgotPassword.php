@@ -44,7 +44,7 @@ class ForgotPassword extends BaseController
 
             if(!$user) {
                 $errors = [
-                    'email' => 'Email is not registered',
+                    'email' => 'Email is not registered or not activated yet',
                 ];
 
                 return $this->response->setJSON(['status' => FALSE, 'errors' => $errors]);

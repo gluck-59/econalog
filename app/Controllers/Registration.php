@@ -77,12 +77,12 @@ class Registration extends BaseController
 
                 $model->transCommit();
 
-                $this->session->setFlashdata('registration-success', 'Registration success, please verify your email!');
+                $this->session->setFlashdata('success', 'Registration success, please verify your email!');
                 return $this->response->setJSON(['status' => TRUE, 'redirectUrl' => '/login']);
             } catch (\Throwable $th) {
                 $model->transRollback();
 
-                $this->session->setFlashdata('registration-failed', 'Registration failed, please try again!');
+                $this->session->setFlashdata('failed', 'Registration failed, please try again!');
                 return $this->response->setJSON(['status' => 'error', 'redirectUrl' => '/registration']);
             }
 
