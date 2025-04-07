@@ -40,7 +40,7 @@
                             <div class="col-lg">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-2">Войдите</h1>
                                     </div>
 
                                     <?php if($session->has('success')) : ?>
