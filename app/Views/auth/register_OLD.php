@@ -34,8 +34,42 @@
                     <div class="col-lg">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-2">Обратитесь к своему менеджеру</h1>
+                                <h1 class="h4 text-gray-900 mb-2">Create an Account!</h1>
                             </div>
+
+                            <?php if($session->has('failed')) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <p class="mb-0"><?= $session->getFlashdata('failed'); ?></p>
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="text-right">
+                                <a class="small" href="/email-verification/resend">Resend Activation Link?</a>
+                            </div>
+                            <form class="user" id="formRegister">
+                                <div class="form-group">
+                                        <input type="text" class="form-control" name="nama" id="nama"
+                                            placeholder="Nama">
+                                        <small class="text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Email Address">
+                                        <small class="text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                        <small class="text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="passwordConfirmation"
+                                    id="passwordConfirmation" placeholder="Repeat Password">
+                                        <small class="text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block" id="btn-register">Register</button>
+                                </div>
+                            </form>
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="/forgot-password">Forgot Password?</a>

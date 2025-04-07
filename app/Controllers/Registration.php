@@ -22,6 +22,7 @@ class Registration extends BaseController
     }
     public function store()
     {
+return false; // откл регистрацию
         $rules = [
             'nama' => 'required',
             'email' => [
@@ -82,7 +83,7 @@ class Registration extends BaseController
             } catch (\Throwable $th) {
                 $model->transRollback();
 
-                $this->session->setFlashdata('failed', 'Registration failed, please try again!');
+                $this->session->setFlashdata('failed', $th->getMessage());
                 return $this->response->setJSON(['status' => 'error', 'redirectUrl' => '/registration']);
             }
 
