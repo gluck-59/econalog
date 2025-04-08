@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://ci4-auth'; // кажется это определяется в .env app.baseURL
+    public string $baseURL = 'https://econalog/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

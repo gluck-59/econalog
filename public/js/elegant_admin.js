@@ -42,19 +42,11 @@ $(function() {
         $(".nav-toggler i").toggleClass("ti-menu");
     });
 
-// this is for toggle menu when navigation open in desktop view
-    $("#toggle").on('click', function() {
-        if (showSidebar && showSidebar == 1) {
-            localStorage.setItem('showSidebar', 0);
-        } else {
-            localStorage.setItem('showSidebar', 1)
-        }
-        // $("div#main-wrapper").toggleClass("always-show-sidebar");
-        // $("aside.left-sidebar").toggleClass("always-show-sidebar");
-
-    });
-
+    // this is for toggle menu when navigation open in desktop view
     $(".nav-lock").on('click', function() {
+        if (localStorage.getItem('showSidebar') == 0) localStorage.setItem('showSidebar', 1);
+        else localStorage.setItem('showSidebar', 0);
+
         $("body").toggleClass("lock-nav");
         $(".nav-lock i").toggleClass("mdi-toggle-switch-off");
         $("body, .page-wrapper").trigger("resize");
