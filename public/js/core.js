@@ -44,8 +44,6 @@ console.log('document ready');
     $('textarea').autoHeight();
 
     let showSidebar = localStorage.getItem('showSidebar') ? localStorage.getItem('showSidebar') : 1;
-console.log('core.js  showSidebar', showSidebar)
-
     if (showSidebar == 1) {
         $("body").addClass("lock-nav");
     } else {

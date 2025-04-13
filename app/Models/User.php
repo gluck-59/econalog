@@ -13,7 +13,7 @@ class User extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'email', 'password', 'user_level', 'is_active'];
+    protected $allowedFields    = ['nama', 'fio', 'email', 'password', 'user_level', 'is_active', 'role'];
 
     // Dates
     protected $useTimestamps = true;
@@ -29,7 +29,7 @@ class User extends Model
 
     public function findUserActiveByEmail($email)
     {
-        return $this->select('nama, email, password')
+        return $this->select('user_id, nama, fio, email, password, role')
             ->where('email', $email)
             ->where('is_active', 1)
             ->first();

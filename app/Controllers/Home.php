@@ -20,6 +20,6 @@ class Home extends BaseController
 
 
     public function jopa() {
-        die('jopa');
+        return __CLASS__.' '.__FUNCTION__;
     }
 }

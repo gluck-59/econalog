@@ -49,7 +49,7 @@ $(function() {
 
         $("body").toggleClass("lock-nav");
         $(".nav-lock i").toggleClass("mdi-toggle-switch-off");
-        $("body, .page-wrapper").trigger("resize");
+        $("body, .mainContainer").trigger("resize");
     });
     $(".search-box a, .search-box .app-search .srh-btn").on('click', function() {
         $(".app-search").toggle(200);

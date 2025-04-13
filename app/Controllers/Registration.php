@@ -11,20 +11,26 @@ class Registration extends BaseController
 {
     public function index()
     {
-        if($this->session->get('user')) {
-            return redirect()->back();
+        if ( (int) $this->session->get('user')['role'] != 1) {
+            return view('auth/register_off');
         }
+
+//        if($this->session->get('user')) {
+//            return redirect()->back();
+//        }
 
         return view('auth/register', [
             'title' => 'Registration Page',
             'session' => $this->session,
         ]);
     }
+
+
     public function store()
     {
-return false; // откл регистрацию
         $rules = [
             'nama' => 'required',
+            'fio' => 'required',
             'email' => [
                 'rules' => 'required|valid_email|is_unique[users.email]',
                 'errors' => [
@@ -46,6 +52,7 @@ return false; // откл регистрацию
         if(!$this->validate($rules)) {
             $errors = [
                 'nama' => $this->validation->getError('nama'),
+                'fio' => $this->validation->getError('fio'),
                 'email' => $this->validation->getError('email'),
                 'password' => $this->validation->getError('password'),
                 'passwordConfirmation' => $this->validation->getError('passwordConfirmation')
@@ -63,6 +70,7 @@ return false; // откл регистрацию
 
                 $data = [
                     'nama' => $this->request->getPost('nama'),
+                    'fio' => $this->request->getPost('fio'),
                     'email' => $email,
                     'password' => $encryptedPassword,
                     'user_level' => 1,

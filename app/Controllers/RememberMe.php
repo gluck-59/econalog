@@ -40,6 +40,7 @@ class RememberMe extends BaseController
                     'isLoggedIn' => TRUE,
                     'nama' => $user['nama'],
                     'email' => $user['email'],
+                    'role' => $user['role'],
                 ]);
 
                 return true;

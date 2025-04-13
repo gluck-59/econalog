@@ -73,11 +73,13 @@ class Login extends BaseController
             if($this->request->getPost('rememberMe')) {
                 $this->rememberMe->setUserCookie($user);
             }
-
             $this->session->set('user', [
                 'isLoggedIn' => true,
+                'user_id' => $user['user_id'],
                 'nama' => $user['nama'],
+                'fio' => $user['fio'],
                 'email' => $user['email'],
+                'role' => $user['role'],
             ]);
             $this->session->setFlashdata('login-success', 'Login success, welcome back ' . $user['nama']);
 

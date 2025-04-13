@@ -61,6 +61,16 @@ File: scss
     /*transition: 0.1s ease-in; */
 }
 
+body .mainContainer {
+    padding-left: 70px;
+}
+body.lock-nav .mainContainer {
+    padding-left: var(--menu-full-width);
+}
+.mainContainer {
+    transition: 0.2s ease-in;
+}
+
 .left-sidebar .sidebar-nav ul li hr{ color: #555; border: solid 1px; }
 .skin-default-dark .left-sidebar .sidebar-nav > ul > li > a i, .skin-default-dark .left-sidebar .sidebar-nav ul li a i {
     color: #9b9a9a; }
@@ -115,6 +125,8 @@ File: scss
     --font-family-sans-serif: "Rubik", sans-serif;
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --navbarHeight: 50px;
+    --menu-mini-width: 70px;
+    --menu-full-width: 220px;
 }
 
 *,
@@ -1561,7 +1573,7 @@ tbody.collapse.show {
     color: #fff; }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.5); }
+    color: rgba(0, 0, 0, 0.5); }
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
     color: rgba(255, 255, 255, 0.75); }
 .navbar-dark .navbar-nav .nav-link.disabled {
@@ -4617,9 +4629,7 @@ Display Classes
 .topbar .top-navbar .dropdown-toggle::after {
     display: none; }
 .topbar .top-navbar .navbar-header {
-    padding-right: 15px;
     line-height: 65px;
-    /*padding-left: 15px;*/
     min-width: 70px;
     border-right: 1px solid rgba(0, 0, 0, 0.1); }
 .topbar .top-navbar .navbar-header .navbar-brand {
@@ -4716,7 +4726,7 @@ Main sidebar
 }
 
 .left-sidebar .nav-text-box {
-    padding: 13px 25px 13px 50px;
+    padding: 13px 85px;
     border-bottom: 1px solid #e9ecef; }
 
 /*******************
@@ -5109,11 +5119,12 @@ Form validation error
  Footer
 *******************/
 .footer {
+    position: fixed;
     bottom: 0;
     color: #212529;
-    left: 0px;
-    padding: 17px 0 0 15px;
+    left: 0;
     right: 0;
+    padding: 0;
     border-top: 1px solid #e9ecef;
     background: #fff; }
 
@@ -5203,12 +5214,11 @@ Mini sidebar
         padding-top: 0px; }
     .lock-nav .left-sidebar {
         left: -40px;
-        width: 220px; }
-    .lock-nav .page-wrapper,
-    .lock-nav .footer {
-        margin-left: 180px; }
-    .lock-nav .topbar {
-        padding-left: 180px; }
+        width: var(--menu-width); }
+    /*.lock-nav .mainContainer, .lock-nav .footer */
+    /*{*/
+    /*    margin-left: 180px; */
+    /*}*/
     .lock-nav .topbar .navbar-header {
         margin-left: 0px; }
     .lock-nav pre { margin-left: 200px!important; }
@@ -5285,4 +5295,12 @@ Mini sidebar
     .topbar .top-navbar .navbar-nav .dropdown-menu .with-arrow {
         display: none; }
 
+}
+
+
+
+a:link, a:visited, a:hover, a:focus, a:active {
+    outline: 0 !important;
+    text-decoration: none !important;
+    color: var(--gray);
 }

@@ -11,15 +11,15 @@ $routes = Services::routes();
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
-$routes->setDefaultMethod('jopa');
+//$routes->setDefaultController('Home');
+$routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
 // Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
-$routes->setAutoRoute(false);
+$routes->setAutoRoute(true);
 
 /*
  * --------------------------------------------------------------------
@@ -29,7 +29,7 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/jopa', 'Home::jopa');
+//$routes->get('/jopa', 'Jopa::index'); // если здесь откл явное указание на метод, то default method будет getIndex, postIndex итд — в зависиимости то того как обратились к контроллеру
 $routes->get('/', 'Home::index');
 
 $routes->get('registration', 'Registration::index');
@@ -42,7 +42,7 @@ $routes->post('email-verification/resend', 'EmailVerification::resendEmailVerifi
 $routes->get('login', 'Login::index');
 $routes->post('login/authenticate', 'Login::authenticate');
 
-$routes->post('logout', 'Logout::index');
+$routes->get('logout', 'Logout::index');
 
 $routes->get('forgot-password', 'ForgotPassword::index');
 $routes->post('forgot-password/reset-password', 'ForgotPassword::resetPassword');
